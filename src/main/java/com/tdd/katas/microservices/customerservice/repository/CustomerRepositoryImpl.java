@@ -11,10 +11,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     private Map<String,CustomerData> map = new HashMap<>();
 
-    void store(String customer_id, CustomerData expectedCustomerData) {
-        map.put(customer_id, expectedCustomerData);
-    }
-
     @Override
     public CustomerData getCustomerData(String customer_id) {
         return map.get(customer_id);

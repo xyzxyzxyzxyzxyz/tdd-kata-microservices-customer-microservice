@@ -1,6 +1,7 @@
 package com.tdd.katas.microservices.customerservice.repository;
 
 import com.tdd.katas.microservices.customerservice.model.CustomerData;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,19 @@ public class CustomerRepositoryImplTest
     @Autowired
     private CustomerRepositoryImpl customerRepository;
 
+    @Before
+    public void setUp() {
+        // Clear repository between tests
+        customerRepository.deleteAllCustomerData();
+    }
+
     @Test
     public void The_repository_returns_valid_output_for_valid_input() throws Exception {
         String CUSTOMER_ID = "X";
 
         CustomerData expectedCustomerData = new CustomerData(CUSTOMER_ID,"Sergio", "Osuna Medina");
 
-        customerRepository.store(CUSTOMER_ID, expectedCustomerData);
+        customerRepository.createCustomerData(CUSTOMER_ID, expectedCustomerData);
 
         CustomerData actualCustomerData =  customerRepository.getCustomerData(CUSTOMER_ID);
 
@@ -34,7 +41,7 @@ public class CustomerRepositoryImplTest
     @Test
     public void The_repository_returns_null_for_invalid_input() throws Exception {
         CustomerData existingCustomerData = new CustomerData("1","Sergio", "Osuna Medina");
-        customerRepository.store(existingCustomerData.getCustomerId(), existingCustomerData);
+        customerRepository.createCustomerData(existingCustomerData.getCustomerId(), existingCustomerData);
 
         CustomerData actualCustomerData =  customerRepository.getCustomerData("2");
 

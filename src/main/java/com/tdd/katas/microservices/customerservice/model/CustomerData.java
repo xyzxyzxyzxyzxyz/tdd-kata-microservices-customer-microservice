@@ -5,6 +5,9 @@ public class CustomerData {
     private String name;
     private String surnames;
 
+    public CustomerData() {
+    }
+
     public CustomerData(String customerId, String name, String surnames) {
         this.customerId = customerId;
         this.name = name;
