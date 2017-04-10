@@ -20,4 +20,17 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return map.get(customer_id);
     }
 
+    @Override
+    public void createCustomerData(String vin, CustomerData customerData) throws IllegalStateException {
+        if (map.containsKey(vin)) {
+            throw new IllegalStateException("Repository already contains a CustomerData with VIN: ["+vin+"]");
+        }
+        map.put(vin, customerData);
+    }
+
+    @Override
+    public void deleteAllCustomerData() {
+        map.clear();
+    }
+
 }
